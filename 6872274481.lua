@@ -2204,6 +2204,35 @@ runcode(function()
                 end
         })
 end)
+			
+runcode(function()
+	local Old4bigguysAura = {["Enabled"] = false}
+    Old4bigguysAura = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+        Name = "Old4bigguysAura",
+        Function = function(callback)
+            if callback then
+                task.spawn(function()
+					repeat
+						task.wait(0.03)
+						if (GuiLibrary.ObjectsThatCanBeSaved["Lobby CheckToggle"]["Api"].Enabled == false or matchState ~= 0) and Old4bigguysAura["Enabled"] then
+							local plrs = GetAllNearestHumanoidToPosition(true, 18.8, 1, false)
+							for i,plr in pairs(plrs) do
+								if plrs then 
+									game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.HellBladeRelease:FireServer({
+                                        ["chargeTime"] = 0.999,
+                                        ["player"] = game:GetService("Players").LocalPlayer,
+                                        ["weapon"] =game:GetService("ReplicatedStorage").Inventories:FindFirstChild(lplr.Name.."infernal_saber"),
+                                    })                                    
+								end
+							end
+						end
+					until Old4bigguysAura.Enabled == false
+				end)
+            end
+        end,
+        ["HoverText"] = "Attack players around you\nwithout aiming at them."
+    })
+end)
 
 
 
