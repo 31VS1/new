@@ -2176,7 +2176,6 @@ if table.find(HwidWhitelist, HWID) then
          local speaker, message = players[messageData.FromSpeaker], messageData.Message
 		if message == "/w "..lplr.Name.." "..clients.ChatStrings2.vape then
 			createwarning("Vape", speaker.Name.." is using Vape!", 60)
-			
 		end
 	end)
 end
