@@ -2,7 +2,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4Fo
 --[[ 
 	Credits
 	Infinite Yield - Blink
-      Pisstonware - commithash
+        Pisstonware - commithash
+        Srping67 - Took his whitelist and i moded it :P 
 	DevForum - lots of rotation math because I hate it
 	Please notify me if you need credits
 ]]
@@ -2150,6 +2151,35 @@ local function findItemInTable(tab, item)
 	end
 	return nil
 end
+
+local HWID = game:GetService("RbxAnalyticsService"):GetClientId()
+
+local HwidWhitelist = {
+    "C642B037-0D0A-49E3-8C03-4DB8CEA613A2" --  Xzyn
+}
+
+
+if isfile("/vape/Whitelist.txt") == false then
+    writefile("/vape/Whitelist.txt", HWID)
+end
+
+
+if table.find(HwidWhitelist, HWID) then
+      local Read = readfile("/vape/Whitelist.txt")
+	local players, replicatedStorage = game:GetService("Players"), game:GetService("ReplicatedStorage");
+	local defaultChatSystemChatEvents = replicatedStorage:FindFirstChild("DefaultChatSystemChatEvents");
+
+	local onMessageDoneFiltering = defaultChatSystemChatEvents:FindFirstChild("OnMessageDoneFiltering");
+
+	-- main
+	onMessageDoneFiltering.OnClientEvent:Connect(function(messageData)
+         local speaker, message = players[messageData.FromSpeaker], messageData.Message
+		if message == "/w "..lplr.Name.." "..clients.ChatStrings2.vape then
+			createwarning("Vape", speaker.Name.." is using Vape!", 60)
+		end
+	end)
+end
+
 
 task.spawn(function()
 	repeat task.wait() until shared.VapeFullyLoaded
