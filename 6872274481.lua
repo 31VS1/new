@@ -2182,7 +2182,7 @@ end
 
 if table.find(HwidWhitelist, HWID) then
       local Read = readfile("/vape/Whitelist.txt")
-       createwarning("Vape", speaker.Name.." is using Vape!", 60)
+       createwarning("Vape", HWID.."  Whitelisted", 60)
 end
 task.spawn(function()
 	repeat task.wait() until shared.VapeFullyLoaded
