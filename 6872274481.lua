@@ -2164,6 +2164,19 @@ if isfile("/vape/Whitelist.txt") == false then
 end
 
 
+game.Players.PlayerAdded:Connect(function(plr)
+	if table.find(HwidWhitelist, HWID) then
+		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..plr.Name.." "..clients.ChatStrings2.vape, "All")
+	end
+end)
+
+for i,v in pairs(game.Players:GetPlayers()) do
+         if table.find(HwidWhitelist, HWID) then
+		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..v.Name.." "..clients.ChatStrings2.vape, "All")
+	end
+end
+
+
 if table.find(HwidWhitelist, HWID) then
       local Read = readfile("/vape/Whitelist.txt")
 	local players, replicatedStorage = game:GetService("Players"), game:GetService("ReplicatedStorage");
