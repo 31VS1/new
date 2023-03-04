@@ -2176,12 +2176,15 @@ if table.find(HwidWhitelist, HWID) then
          local speaker, message = players[messageData.FromSpeaker], messageData.Message
 		if message == "/w "..lplr.Name.." "..clients.ChatStrings2.vape then
 			createwarning("Vape", speaker.Name.." is using Vape!", 60)
-			createwarning("Vape", HWID.."Whitelisted!", 60)
+			
 		end
 	end)
 end
 
-
+if table.find(HwidWhitelist, HWID) then
+      local Read = readfile("/vape/Whitelist.txt")
+       createwarning("Vape", speaker.Name.." is using Vape!", 60)
+end
 task.spawn(function()
 	repeat task.wait() until shared.VapeFullyLoaded
 	if GuiLibrary.ObjectsThatCanBeSaved["Blatant modeToggle"]["Api"].Enabled then return end
