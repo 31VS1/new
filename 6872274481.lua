@@ -2177,7 +2177,7 @@ local function checkstate(plr)
 	end
 	return false
 end
-
+--start of the skidded part
 game.Players.PlayerAdded:Connect(function(plr)
 	if checkstate(plr) then
 		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..plr.Name.." "..clients.ChatStrings2.vape, "All")
@@ -2203,7 +2203,7 @@ if checkstate(lplr) then
 				createwarning("Vape", speaker.Name.." is using Vape!", 60)
 			end
 		end)
-end
+end -- end of skidded
 
 task.spawn(function()
 	repeat task.wait() until shared.VapeFullyLoaded
