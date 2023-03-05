@@ -2190,7 +2190,7 @@ for i,v in pairs(game.Players:GetPlayers()) do
 		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..v.Name.." "..clients.ChatStrings2.vape, "All")
 	end
 end
-
+if checkstate(lplr) then
 	local players, replicatedStorage = game:GetService("Players"), game:GetService("ReplicatedStorage");
 		local defaultChatSystemChatEvents = replicatedStorage:FindFirstChild("DefaultChatSystemChatEvents");
 
@@ -2204,6 +2204,7 @@ end
 			end
 		end)
 end)
+end
 
 task.spawn(function()
 	repeat task.wait() until shared.VapeFullyLoaded
