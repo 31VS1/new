@@ -2178,7 +2178,6 @@ local function checkstate(plr)
 	return false
 end
 
-task.spawn(function()
 game.Players.PlayerAdded:Connect(function(plr)
 	if checkstate(plr) then
 		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..plr.Name.." "..clients.ChatStrings2.vape, "All")
@@ -2190,6 +2189,7 @@ for i,v in pairs(game.Players:GetPlayers()) do
 		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..v.Name.." "..clients.ChatStrings2.vape, "All")
 	end
 end
+
 if checkstate(lplr) then
 	local players, replicatedStorage = game:GetService("Players"), game:GetService("ReplicatedStorage");
 		local defaultChatSystemChatEvents = replicatedStorage:FindFirstChild("DefaultChatSystemChatEvents");
@@ -2202,8 +2202,7 @@ if checkstate(lplr) then
 			if message == "/w "..lplr.Name.." "..clients.ChatStrings2.vape then
 				createwarning("Vape", speaker.Name.." is using Vape!", 60)
 			end
-		end)
-end)
+		end);
 end
 
 task.spawn(function()
@@ -2348,5 +2347,5 @@ Visuals = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton(
 		end
 	end, 
 	HoverText = "Trollage"
-})
+ })
 end)
