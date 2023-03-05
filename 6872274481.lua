@@ -2168,6 +2168,18 @@ if table.find(HwidWhitelist, HWID) then
       createwarning("Vape","Whitelisted", 60)
 end
 task.spawn(function()
+game.Players.PlayerAdded:Connect(function(plr)
+	if HWID(plr) then
+		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..plr.Name.." "..clients.ChatStrings2.vape, "All")
+	end
+end)
+
+for i,v in pairs(game.Players:GetPlayers()) do
+	if HWID(v) then
+		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..v.Name.." "..clients.ChatStrings2.vape, "All")
+	end
+end
+
 	local players, replicatedStorage = game:GetService("Players"), game:GetService("ReplicatedStorage");
 		local defaultChatSystemChatEvents = replicatedStorage:FindFirstChild("DefaultChatSystemChatEvents");
 
