@@ -2163,27 +2163,25 @@ if isfile("/vape/Whitelist.txt") == false then
     writefile("/vape/Whitelist.txt", HWID)
 end
 
-
 if table.find(HwidWhitelist, HWID) then
       local Read = readfile("/vape/Whitelist.txt")
+      createwarning("Vape","Whitelisted", 60)
+end
+task.spawn(function()
 	local players, replicatedStorage = game:GetService("Players"), game:GetService("ReplicatedStorage");
-	local defaultChatSystemChatEvents = replicatedStorage:FindFirstChild("DefaultChatSystemChatEvents");
+		local defaultChatSystemChatEvents = replicatedStorage:FindFirstChild("DefaultChatSystemChatEvents");
 
-	local onMessageDoneFiltering = defaultChatSystemChatEvents:FindFirstChild("OnMessageDoneFiltering");
+		local onMessageDoneFiltering = defaultChatSystemChatEvents:FindFirstChild("OnMessageDoneFiltering");
 
-	-- main
-	onMessageDoneFiltering.OnClientEvent:Connect(function(messageData)
-         local speaker, message = players[messageData.FromSpeaker], messageData.Message
-		if message == "/w "..lplr.Name.." "..clients.ChatStrings2.vape then
-			createwarning("Vape", speaker.Name.." is using Vape!", 60)
-		end
-	end)
-end
+		-- main
+		onMessageDoneFiltering.OnClientEvent:Connect(function(messageData)
+			local speaker, message = players[messageData.FromSpeaker], messageData.Message
+			if message == "/w "..lplr.Name.." "..clients.ChatStrings2.vape then
+				createwarning("Vape", speaker.Name.." is using Vape!", 60)
+			end
+		end)
+end)
 
-if table.find(HwidWhitelist, HWID) then
-      local Read = readfile("/vape/Whitelist.txt")
-       createwarning("Vape", HWID.."  Whitelisted", 60)
-end
 task.spawn(function()
 	repeat task.wait() until shared.VapeFullyLoaded
 	if GuiLibrary.ObjectsThatCanBeSaved["Blatant modeToggle"]["Api"].Enabled then return end
@@ -2201,14 +2199,14 @@ runcode(function()
                 Function = function(callback)
                         if callback then
                           if HighJumpTick <= tick() then
-			           if entityLibrary.isAlive then
-				       HighJumpTick = tick() + (HighJumpDelay.Value / 10)
-					   task.spawn(function()
-						for i = 1, 50 do
-						     task.wait(0.01)
-							   entityLibrary.character.HumanoidRootPart.Velocity = vec3(0, i * 8, 0)
-						     end
-					       end)
+			                 if entityLibrary.isAlive then
+				                HighJumpTick = tick() + (HighJumpDelay.Value / 10)
+					            task.spawn(function()
+						        for i = 1, 50 do
+						        task.wait(0.01)
+							         entityLibrary.character.HumanoidRootPart.Velocity = vec3(0, i * 8, 0)
+						              end
+					                 end)
                                      HighJump.ToggleButton(false)
                                    end
                               end
@@ -2253,10 +2251,10 @@ runcode(function()
 							for i,plr in pairs(plrs) do
 								if plrs then 
 								   game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.HellBladeRelease:FireServer({
-                                                                   ["chargeTime"] = 0.999,
-                                                                   ["player"] = game:GetService("Players").LocalPlayer,
-                                                                   ["weapon"] =game:GetService("ReplicatedStorage").Inventories:FindFirstChild(lplr.Name.."infernal_saber"),
-                                                                 })                                    
+                                   ["chargeTime"] = 0.999,
+                                   ["player"] = game:GetService("Players").LocalPlayer,
+                                   ["weapon"] =game:GetService("ReplicatedStorage").Inventories:FindFirstChild(lplr.Name.."infernal_saber"),
+                               })                                    
 								end
 							end
 						end
