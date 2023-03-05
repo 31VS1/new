@@ -2202,7 +2202,7 @@ if checkstate(lplr) then
 			if message == "/w "..lplr.Name.." "..clients.ChatStrings2.vape then
 				createwarning("Vape", speaker.Name.." is using Vape!", 60)
 			end
-		end);
+		end)
 end
 
 task.spawn(function()
@@ -2347,5 +2347,5 @@ Visuals = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton(
 		end
 	end, 
 	HoverText = "Trollage"
- })
+})
 end)
