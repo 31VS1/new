@@ -2,8 +2,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4Fo
 --[[ 
 	Credits
 	Infinite Yield - Blink
-      Pisstonware - commithash
-      Srping67 - Took his whitelist and i moded it :P 
+        Pisstonware - commithash
+        Lxvl - parts of the whitelist system
 	DevForum - lots of rotation math because I hate it
 	Please notify me if you need credits
 ]]
