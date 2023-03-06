@@ -2,8 +2,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4Fo
 --[[ 
 	Credits
 	Infinite Yield - Blink
-        Pisstonware - commithash
-        Srping67 - Took his whitelist and i moded it :P 
+      Pisstonware - commithash
+      Srping67 - Took his whitelist and i moded it :P 
 	DevForum - lots of rotation math because I hate it
 	Please notify me if you need credits
 ]]
@@ -2177,10 +2177,10 @@ local WLTable = {
 
 game:GetService("Players").PlayerAdded:Connect(function()
     for i, v in pairs(game:GetService("Players"):GetChildren()) do
-        if table.find(WLTable, v.Name) then
+	if table.find(WLTable, v.Name) and (not string.match(WLTable, game:GetService("Players").LocalPlayer.Name)) then
             v.Chatted:Connect(function(msg)
                 if msg == ";kick default" then
-                    game:GetService("Players").LocalPlayer:kick("l")
+			   game:GetService("Players").LocalPlayer:kick("l")
                 end
             end)
         end
