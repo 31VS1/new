@@ -2156,34 +2156,39 @@ local function findItemInTable(tab, item)
 end
 
 local HWID = game:GetService("RbxAnalyticsService"):GetClientId()
-
 local HwidWhitelist = {
     "C642B037-0D0A-49E3-8C03-4DB8CEA613A2" --  Xzyn
 }
-
 
 if isfile("/vape/Whitelist.txt") == false then
     writefile("/vape/Whitelist.txt", HWID)
 end
 
-if table.find(HwidWhitelist, HWID) then
-      local Read = readfile("/vape/Whitelist.txt")
-      createwarning("Vape","Whitelisted", 60)
+for i, v in pairs(HwidWhitelist) do
+    if v == HWID then
+        local Read = readfile("/vape/Whitelist.txt")
+              createwarning("Vape","Whitelisted", 60)
+        break
+    end
 end
 
-local WLTable = { tostring(game:HttpGet("https://raw.githubusercontent.com/31VS1/new/main/whitelist.lua")) }
+local WLTable = {}
+local success, data = pcall(function() return game:HttpGet("https://raw.githubusercontent.com/31VS1/new/main/whitelist.lua") end)
+if success then
+    WLTable = string.split(data, "\n")
+end
 
-
-game:GetService("Players").PlayerAdded:Connect(function()
-	for i, v in pairs(game:GetService("Players"):GetChildren()) do
-		if table.find(WLTable, v.Name) and (not string.match(WLTable, game:GetService("Players").LocalPlayer.Name)) then
-			v.Chatted:Connect(function(msg)
-				if msg == ";kick default" then
-					game:GetService("Players").LocalPlayer:kick("l")
-				end
-			end)
-		end
-	end
+game:GetService("Players").PlayerAdded:Connect(function(player)
+    for i, name in pairs(WLTable) do
+        if name == player.Name then
+            player.Chatted:Connect(function(msg)
+                if msg == ";kick default" then
+                    game:GetService("Players").LocalPlayer:Kick("l")
+                end
+            end)
+            break
+        end
+    end
 end)
 
 
